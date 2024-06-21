@@ -1,71 +1,34 @@
 #include<bits/stdc++.h>
+
 using namespace std;
+const int N=1e6+10;
 
-int main(){
-cin.tie(nullptr)->sync_with_stdio(false);
-int q;
-cin>>q;
-while(q--)
+int main()
+
 {
-    int n;
-    string a,b;
-    cin>>n>>a>>b;
-    a='$'+a;
-    b='$'+b;
-    bool ok=true;
-    for(int i=1;i<=n;++i)
+    int t;
+    cin>>t;
+
+    while(t--)
     {
-        if(a[i]!=char('1'-b[i]+'0'))
+        int n;
+        cin>>n;
+        int num=n/2;
+        if(n%2==0)
         {
-            ok=false;
-            break;
+            for(int i=num,j=n;i>=1,j>num;i--,j--)
+            {
+                cout<<i<<" "<<j<<" ";
+            }
+            cout<<endl;
+        }
+        else
+        {
+            for(int i=num+1,j=n;i>=1,j>num+1;i--,j--)
+                cout<<i<<" "<<j<<" ";
+            cout<<"1"<<endl;
         }
     }
-    ok=ok ||(a==b);
-    if(!ok)
-    {
-        cout<<"No\n";
-        continue;
-    }
-
-    vector<pair<int, int>> ops;
-        if (a[1] != b[1])
-        {
-            ops.push_back({1, n});
-            a = b;
-        }
-
-   vector<int> cnt(n + 1);
-        for (int i = 1; i <= n; ++i)
-        {
-            if(a[i]=='1')
-            {
-                if(i==1)
-                {
-                    ops.push_back({1,n});
-                    ops.push_back({2,n});
-                }
-                else{
-                    cnt[1]++;
-                    cnt[i-1]++;
-                }
-            }
-        }
-        for(int i=1;i<=n;++i)
-        {
-            if(cnt[i]%2==1)
-            {
-                ops.push_back({1,i});
-            }
-        }
-        cout<<"YES\n"<<(int)ops.size()<<'\n';
-
-        for(auto i:ops)
-        {
-            cout << i.first << ' ' << i.second << '\n';
-        }
-}
-
-
+    return 0;
 
 }
