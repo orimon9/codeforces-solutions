@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
-#include <string>
+#include <set>
 #include <algorithm>
+
 using namespace std;
 
 const int MOD = 998244353;
@@ -11,14 +11,15 @@ int main() {
     int n, k;
     cin >> n >> k;
 
-    // Factorials and inverse factorials for combinatorial calculations
-    vector<long long> fact(n + 1, 1), invFact(n + 1, 1);
+    vector<long long> fact(n + 1, 1);
     for (int i = 2; i <= n; ++i) {
-        fact[i] = fact[i - 1] * i % MOD;
+        fact[i] = (fact[i - 1] * i) % MOD;
     }
+
+    vector<long long> invFact(n + 1, 1);
     invFact[n] = 1;
     for (int i = n - 1; i >= 2; --i) {
-        invFact[i] = invFact[i + 1] * (i + 1) % MOD;
+        invFact[i] = (invFact[i + 1] * (i + 1)) % MOD;
     }
 
     auto binom = [&](int a, int b) {
@@ -40,4 +41,3 @@ int main() {
     cout << dp[n][k] << endl;
     return 0;
 }
-
