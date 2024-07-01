@@ -1,34 +1,32 @@
-//! Bismillahi-Rahamanirahim.
-/** ========================================**
- ** @Author: O R Imon( TAMK, SE'24)
- ** @Category:
-/** ========================================**/
-
-#include<bits/stdc++.h>
-#include<stdio.h>
+#include <iostream>
 using namespace std;
 
+int main() {
+    int cnt1, cnt2, cnt3, cnt4;
+    cin >> cnt1 >> cnt2 >> cnt3 >> cnt4;
 
-int main()
-{
-    int n, x, y;
-    cin >> n >> x >> y;
+    // Calculate the total number of opening and closing brackets needed
+    int opening_brackets = cnt1 + cnt2;
+    int closing_brackets = cnt3 + cnt4;
 
-    string num;
-    cin >> num;
-
-    string goal(x, '0');
-    goal[x - y - 1] = '1';
-
-    int ch = 0;
-    for (int i = 0; i < x; ++i)
-    {
-        if (num[n - x + i] != goal[i])
-        {
-            ch++;
-        }
+    // Check if the counts of opening and closing brackets match
+    if (opening_brackets != closing_brackets) {
+        cout << 0 << endl;
+        return 0;
     }
 
-    cout << ch << endl;
+    // Check if the count of opening brackets is always greater than or equal to the count of closing brackets
+    if (cnt1 == 1 && cnt3 > 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    // If there's only one type of bracket, it's impossible to form a regular bracket sequence
+    if (cnt1 == 1 || cnt3 == 0) {
+        cout << 0 << endl;
+        return 0;
+    }
+
+    cout << 1 << endl;
     return 0;
 }

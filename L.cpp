@@ -1,50 +1,33 @@
-//! Bismillahi-Rahamanirahim.
-/** ========================================**
- ** @Author: O R Imon( TAMK, SE'24)
- ** @Category:
-/** ========================================**/
-
-#include<bits/stdc++.h>
-#include<stdio.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
+int main() {
+    int x;
+    cin >> x;
 
-#define ll                  long long
-#define scl(n)              scanf("%lld", &n)
-#define fr(i,n)             for (ll i=0;i<n;i++)
-#define fr1(i,n)            for(ll i=1;i<=n;i++)
-#define pfl(x)              printf("%lld\n",x)
-#define endl 	    "\n"
-#define pb                  push_back
-#define asort(a)            sort(a,a+n)
-#define dsort(a)            sort(a,a+n,greater<int>())
-#define vasort(v)         sort(v.begin(), v.end());
-#define vdsort(v)         sort(v.begin(), v.end(),greater<int>());
-#define pn                  printf("\n")
-#define md                  10000007
-#define debug               printf("I am here\n")
-#define ps                  printf(" ")
+    int t = 0; // Number of operations
+    vector<int> n; // Stores the values of n for operation A
 
-#define N 100006
+    while (x != 0 && t < 40) {
+        int highest_bit = 31 - __builtin_clz(x); // Find the position of the highest set bit in x
+        int ni = highest_bit; // Choose n as the highest set bit position
+        n.push_back(ni);
 
-int main()
-{
-    ll m,n,t,b,c,d,i,j,k,x,y,z,l,q,r, cnt=0;
+        x ^= (1 << ni) - 1; // Perform operation A: x ⊕ (2^ni - 1)
+        x++; // Perform operation B: increase x by 1
 
-    string s,s1;
-    cin>>n>>s;
-
-    for(i=0; i<n; i+=2)
-    {
-        if(s[i] ==s[i+1] )
-        {
-            s.erase(s.begin()+i+1 ),cnt++, i-=2;
-        }
-        n=s.size();
+        t += 2; // Increment the number of operations by 2
     }
 
-    if(n%2 !=0) s.erase(s.end()-1 ), cnt++;
-    cout<<cnt<<endl<<s;
+    // Output the number of operations
+    cout << t << endl;
+
+    // Output the values of n for operation A
+    for (int i = 0; i < n.size(); ++i) {
+        cout << n[i] << " ";
+    }
+    cout << endl;
 
     return 0;
 }

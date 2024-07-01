@@ -1,33 +1,44 @@
-#include<bits/stdc++.h>
-#include <unordered_map>
-
+#include <bits/stdc++.h>
+using namespace std;
 using namespace std;
 
-long long Operation(long long x, long long y, long long k)
-{
-    while (k--)
-    {
-        x += 1;
-        while (x % y == 0)
-        {
-            x /= y;
+bool canFormSquare(long long n, long long s) {
+    long long requiredBlocks = s * s;
+    long long currentSum = 0;
+    for (long long i = 1; i <= n; ++i) {
+        currentSum += (i + 1) / 2;
+        if (currentSum >= requiredBlocks) {
+            return true;
+        }
+        if (i > s * 2) {
+            break;
         }
     }
-    return x;
+    return false;
 }
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
+int main() {
     int t;
     cin >> t;
-    while (t--)
-    {
-        long long x, y, k;
-        cin >> x >> y >> k;
-        cout << Operation(x, y, k) << endl;
+
+    while (t--) {
+        long long n;
+        cin >> n;
+
+        long long left = 0, right = n, maxSide = 0;
+
+        while (left <= right) {
+            long long mid = left + (right - left) / 2;
+            if (canFormSquare(n, mid)) {
+                maxSide = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        cout << maxSide << endl;
     }
+
     return 0;
 }
