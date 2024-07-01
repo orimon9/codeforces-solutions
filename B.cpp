@@ -1,34 +1,33 @@
 #include<bits/stdc++.h>
+#include <unordered_map>
 
 using namespace std;
-const int N=1e6+10;
 
-int main()
-
+long long Operation(long long x, long long y, long long k)
 {
-    int t;
-    cin>>t;
-
-    while(t--)
+    while (k--)
     {
-        int n;
-        cin>>n;
-        int num=n/2;
-        if(n%2==0)
+        x += 1;
+        while (x % y == 0)
         {
-            for(int i=num,j=n;i>=1,j>num;i--,j--)
-            {
-                cout<<i<<" "<<j<<" ";
-            }
-            cout<<endl;
-        }
-        else
-        {
-            for(int i=num+1,j=n;i>=1,j>num+1;i--,j--)
-                cout<<i<<" "<<j<<" ";
-            cout<<"1"<<endl;
+            x /= y;
         }
     }
-    return 0;
+    return x;
+}
 
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        long long x, y, k;
+        cin >> x >> y >> k;
+        cout << Operation(x, y, k) << endl;
+    }
+    return 0;
 }

@@ -1,44 +1,24 @@
-#include<bits/stdc++.h>
-
-#define ll long long int
-#define nline '\n'
-
+#include <iostream>
 using namespace std;
 
-void sol()
-{
-    ll n;
-    cin>>n;
-
-    string s;
-    cin>>s;
-
-    ll cnt=0;
-
-    for(auto ch:s){
-
-        if(ch=='Q')
-            cnt++;
-        else
-            cnt--;
-
-        if(cnt<0)
-            cnt=0;
+int main() {
+    int t;
+    cin >> t;  
+    while (t--) {
+        int x1, y1, x2, y2;
+        cin >> x1 >> y1;  
+        cin >> x2 >> y2;  
+        
+  
+        int dx = x2 - x1;
+        int dy = y2 - y1;
+        
+      
+        if (abs(dx - dy) > 1) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
     }
-    if(cnt==0)
-        cout<<"Yes\n";
-    else
-        cout<<"No\n";
-}
-
-int main(){
-
-ios_base::sync_with_stdio(false);
-cin.tie(NULL);
-ll T=1;
-cin>>T;
-while(T--)
-{
-    sol();
-}
+    return 0;
 }
