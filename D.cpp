@@ -1,24 +1,57 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    long long max_x = 0;
-    long long max_y = 0;
+    int t;
+    cin >> t;
 
-    for (int i = 1; i < n; ++i) {
-        long long x, y;
-        cin >> x >> y;
-        max_x = max(max_x, x);
-        max_y = max(max_y, y);
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        string s;
+        for (int i = 0; i < n; ++i) {
+            cin >> a[i];
+        }
+        cin >> s;
+
+        long long total_score = 0;
+
+        // Calculate initial score assuming no operations are performed
+        for (int i = 0; i < n; ++i) {
+            total_score += a[i];
+        }
+
+        vector<long long> gains;
+
+        // Calculate the potential gains if we swap each L with an R on the right
+        for (int i = 0; i < n; ++i) {
+            if (s[i] == 'L') {
+                // Gain if we swap this L to the closest possible R
+                gains.push_back(a[n - i - 1] - a[i]);
+            } else if (s[i] == 'R') {
+                // Gain if we swap this R to the closest possible L
+                gains.push_back(a[i] - a[n - i - 1]);
+            }
+        }
+
+        // Sort the potential gains in decreasing order
+        sort(gains.rbegin(), gains.rend());
+
+        // Apply the best gains to maximize the score
+        for (int i = 0; i < n; ++i) {
+            if (gains[i] > 0) {
+                total_score += gains[i];
+            }
+        }
+
+        cout << total_score << '\n';
     }
-
-    // The minimum length of the shorter side of the triangle
-    long long min_side_length = max(max_x, max_y);
-    cout << min_side_length << endl;
 
     return 0;
 }

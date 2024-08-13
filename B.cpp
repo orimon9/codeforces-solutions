@@ -1,43 +1,48 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <map>
 using namespace std;
-using namespace std;
-
-bool canFormSquare(long long n, long long s) {
-    long long requiredBlocks = s * s;
-    long long currentSum = 0;
-    for (long long i = 1; i <= n; ++i) {
-        currentSum += (i + 1) / 2;
-        if (currentSum >= requiredBlocks) {
-            return true;
-        }
-        if (i > s * 2) {
-            break;
-        }
-    }
-    return false;
-}
 
 int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int t;
     cin >> t;
 
     while (t--) {
-        long long n;
+        int n;
         cin >> n;
+        vector<int> a(n);
+        map<int, bool> occupied;
 
-        long long left = 0, right = n, maxSide = 0;
+        for (int i = 0; i < n; ++i) {
+            cin >> a[i];
+        }
 
-        while (left <= right) {
-            long long mid = left + (right - left) / 2;
-            if (canFormSquare(n, mid)) {
-                maxSide = mid;
-                left = mid + 1;
+        bool ok = true;
+
+        for (int i = 0; i < n; ++i) {
+            int seat = a[i];
+
+            if (occupied.empty()) {
+
+                occupied[seat] = true;
             } else {
-                right = mid - 1;
+
+                if (occupied[seat - 1] || occupied[seat + 1]) {
+                    occupied[seat] = true;
+                } else {
+                    ok = false;
+                    break;
+                }
             }
         }
 
-        cout << maxSide << endl;
+        if (ok)
+            cout << "YES\n";
+        else
+            cout << "NO\n";
     }
 
     return 0;

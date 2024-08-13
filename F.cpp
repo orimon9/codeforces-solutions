@@ -1,28 +1,57 @@
-#include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
-// Function to calculate the digital root of a number
-int digitalRoot(int n) {
-    return (n - 1) % 9 + 1;
-}
-
-// Function to find the k-th positive number with a given digital root
-long long findKthNumber(int k, int x) {
-    // The k-th number with digital root x is the smallest number with digital root x
-    // multiplied by k
-    return (k - 1) * 9 + x;
-}
+using namespace std;
 
 int main() {
-    int n;
-    scanf("%d", &n);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    while (n--) {
-        int k, x;
-        scanf("%d %d", &k, &x);
+    int t;
+    cin >> t;
 
-        // Find the k-th positive number with digital root x
-        long long ans = findKthNumber(k, x);
-        printf("%lld\n", ans);
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+
+        vector<pair<int, int>> rectangles(n);
+
+        for (int i = 0; i < n; ++i) {
+            int a, b;
+            cin >> a >> b;
+            rectangles[i] = {a, b};
+        }
+
+        vector<int> operations;
+
+        // For each rectangle, consider the operations required to color all columns and all rows
+        for (int i = 0; i < n; ++i) {
+            int width = rectangles[i].first;
+            int height = rectangles[i].second;
+
+            // Max points we can get from this rectangle is min(width, height)
+            int max_points = min(width, height);
+
+            // If the required points `k` are less than or equal to `max_points`, we compute the exact operations needed
+            for (int j = 1; j <= max_points; ++j) {
+                operations.push_back(min(j * height, j * width));
+            }
+        }
+
+        // Sort the operations in ascending order
+        sort(operations.begin(), operations.end());
+
+        // Sum the first `k` smallest operations
+        if (k <= operations.size()) {
+            int result = 0;
+            for (int i = 0; i < k; ++i) {
+                result += operations[i];
+            }
+            cout << result << '\n';
+        } else {
+            cout << -1 << '\n';
+        }
     }
 
     return 0;

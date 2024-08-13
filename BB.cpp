@@ -1,38 +1,52 @@
-#include <iostream>
-#include <vector>
-using namespace std;
+#include<iostream>
+#include<vector>
+#include<map>
 
-int generatePermutation(int n) {
-    vector<int> result(n);
-    if (n % 2 == 0) {
-        int left = n / 2;
-        int right = n;
-        int index = 0;
-        while (left > 0) {
-            result[index++] = left--;
-            result[index++] = right--;
+int main(){
+ios::sync_with_stdio(false);
+cin.tie(nullptr);
+
+int t;
+cin>>t;
+
+while(t--){
+
+    int n;
+    cin>>n;
+    vector<int>a(n);
+    map<int,bool>occupied;
+
+    for(int i=0;i<n;++i){
+
+        cin>>a[i];
+
+    }
+
+    bool ok=true;
+
+    for(int i=0;i<n;++i){
+
+        int seat=a[i];
+
+        if(occupied.empty()){
+            occupied[seat]=true;
         }
-    } else {
-        for (int i = 1; i <= n; ++i) {
-            result[i-1] = i;
+        else{
+            if(occupied[seat-1] || occupied[seat+1]){
+                occupied[seat]=true;
+            }
+            else{
+                ok=false;
+                break;
+            }
         }
     }
 
-    for (int i = 0; i < n; i++) {
-        cout << result[i] << " ";
-    }
-    cout << endl;
+    if(ok)
+        cout<<"YES\n";
+
+    else
+        cout<<"NO\n";
 }
-
-int main() {
-    int t;
-    cin >> t;
-
-    while (t--) {
-        int n;
-        cin >> n;
-        generatePermutation(n);
-    }
-
-    return 0;
+return 0;
 }
